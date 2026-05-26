@@ -30,7 +30,7 @@ mkdir -p ~/.claude/skills
 
 # Склонуйте репо як скіл
 cd ~/.claude/skills
-git clone https://github.com/YOUR-USERNAME/profigent-context-model-skill.git company-context-model
+git clone https://github.com/boxa007/profigent-lesson_1.git company-context-model
 
 # Перезапустіть Claude Code
 ```
@@ -45,7 +45,7 @@ git clone https://github.com/YOUR-USERNAME/profigent-context-model-skill.git com
 
 ```bash
 mkdir -p ~/.claude/skills && \
-git clone https://github.com/YOUR-USERNAME/profigent-context-model-skill.git ~/.claude/skills/company-context-model
+git clone https://github.com/boxa007/profigent-lesson_1.git ~/.claude/skills/company-context-model
 ```
 
 ---

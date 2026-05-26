@@ -1,12 +1,12 @@
 #!/bin/bash
 #
 # Profigent · Company Context Model Skill — інсталятор
-# One-liner: curl -sSL https://raw.githubusercontent.com/YOUR-USERNAME/profigent-context-model-skill/main/install.sh | bash
+# One-liner: curl -sSL https://raw.githubusercontent.com/boxa007/profigent-lesson_1/main/install.sh | bash
 #
 
 set -e
 
-REPO_URL="https://github.com/YOUR-USERNAME/profigent-context-model-skill.git"
+REPO_URL="https://github.com/boxa007/profigent-lesson_1.git"
 SKILL_NAME="company-context-model"
 SKILLS_DIR="$HOME/.claude/skills"
 TARGET="$SKILLS_DIR/$SKILL_NAME"
