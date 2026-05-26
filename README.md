@@ -2,7 +2,7 @@
 
 > Bootstrap-скіл для учасників програми **Leadgen & Sales Booster** (Profigent).
 > Створює структуру папок компанії, проводить 15-питальне інтерв'ю, синтезує контекстну модель.
-> _One-shot setup for your LinkedIn AI workflow._
+> One-shot setup for your LinkedIn AI workflow
 
 ---
 
@@ -220,7 +220,7 @@ git clone https://github.com/boxa007/profigent-lesson_1.git ~/.claude/skills/com
 
 ## Підтримка
 
-Якщо щось не працює — напишіть у спільний чат програми **Leadgen & Sales Booster** або у DM Володимиру Куцу:
+Якщо щось не працює — напишіть у DM Володимиру Куц:
 - LinkedIn: [linkedin.com/in/kutsvladimir](https://www.linkedin.com/in/kutsvladimir/)
 - Сайт: [profigent.ai](https://profigent.ai)
 
@@ -229,7 +229,3 @@ git clone https://github.com/boxa007/profigent-lesson_1.git ~/.claude/skills/com
 ## Ліцензія
 
 MIT — використовуйте вільно, адаптуйте під себе. Якщо допомогло — зробіть зірочку ⭐ на GitHub.
-
----
-
-**Зроблено для учасників програми Leadgen & Sales Booster · Profigent · 2026**
