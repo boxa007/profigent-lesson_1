@@ -1,6 +1,6 @@
 # Company Context Model — Claude Code Skill
 
-> Bootstrap-скіл для учасників програми **Leadgen & Sales Booster** (Profigent).
+> Cкіл для учасників програми **GF**.
 > Створює структуру папок компанії, проводить 15-питальне інтерв'ю, синтезує контекстну модель.
 > One-shot setup for your LinkedIn AI workflow
 
