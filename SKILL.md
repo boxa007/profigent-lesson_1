@@ -391,6 +391,4 @@ leverage, synergy, passionate, thrilled, humbled, delve into, in today's landsca
 = 1 година — повний фундамент для AI-driven LinkedIn pipeline
 ```
 
-# Кредити
 
-Логіка аудиту натхненна skill `linkedin-growth-skill` від [@espindolavinicius](https://github.com/espindolavinicius/linkedin-growth-skill) — адаптовано під 360Brew-критерії і програму Profigent.
