@@ -195,7 +195,7 @@ competitors_analyzed: [N]
 
 ## 7. Sources
 
-Усі URL які проаналізовано через Exa/Firecrawl/WebFetch:
+Усі URL які проаналізовано через WebSearch + WebFetch:
 
 ### Конкурентські профілі
 1. [URL 1] — [короткий опис що там знайшли]

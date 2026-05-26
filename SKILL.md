@@ -1,6 +1,6 @@
 ---
 name: company-context-model
-description: Уніфікований скіл для учасників програми Leadgen & Sales Booster (Profigent). 3 фази в одному скілі — БРИФ (15-питальне інтерв'ю + структура папок + _context-model.md), АУДИТ ПРОФІЛЮ (за 6 критеріями 360Brew + перепис Headline/About/Featured), ПОЗИЦІОНУВАННЯ (web research через Exa/Firecrawl + аналіз конкурентів і ICP-мови + 3-5 пропозицій позиціонування). Запускається ПЕРШИМ при налаштуванні нового Claude Code проекту під LinkedIn. Фази можна викликати послідовно або окремо. Тригери — "create context model", "контекстна модель", "налаштувати проект LinkedIn", "/company-context-model", "/foundation", "/brief", "/audit", "/positioning", "audit my profile", "проаналізуй мій LinkedIn", "запропонуй позиціонування".
+description: Уніфікований скіл для учасників програми Leadgen & Sales Booster (Profigent). 3 фази в одному скілі — БРИФ (15-питальне інтерв'ю + структура папок + _context-model.md), АУДИТ ПРОФІЛЮ (за 6 критеріями 360Brew + перепис Headline/About/Featured), ПОЗИЦІОНУВАННЯ (web research через вбудовані WebSearch/WebFetch Claude Code + аналіз конкурентів і ICP-мови + 3-5 пропозицій позиціонування). Запускається ПЕРШИМ при налаштуванні нового Claude Code проекту під LinkedIn. Фази можна викликати послідовно або окремо. Тригери — "create context model", "контекстна модель", "налаштувати проект LinkedIn", "/company-context-model", "/foundation", "/brief", "/audit", "/positioning", "audit my profile", "проаналізуй мій LinkedIn", "запропонуй позиціонування".
 ---
 
 # Company Context Model — Multi-Phase LinkedIn Foundation Skill
@@ -11,7 +11,7 @@ description: Уніфікований скіл для учасників про�
 |---|---|---|---|
 | 1 · БРИФ | `/brief` (default) | 25-30 хв | Інтерв'ю → структура папок → `_context-model.md` |
 | 2 · АУДИТ | `/audit` | 10-15 хв | Аналіз профілю за 6 критеріями + перепис ключових секцій |
-| 3 · ПОЗИЦІОНУВАННЯ | `/positioning` | 15-20 хв | Web research конкурентів і ICP + 3-5 пропозицій |
+| 3 · ПОЗИЦІОНУВАННЯ | `/positioning` | 15-20 хв | Web research (WebSearch + WebFetch) конкурентів і ICP + 3-5 пропозицій |
 
 **Послідовність:** користувач може запустити кожну фазу окремо, або одразу всі три у послідовності `/brief → /audit → /positioning`.
 
@@ -255,20 +255,23 @@ leverage, synergy, passionate, thrilled, humbled, delve into, in today's landsca
 
 ## Що робимо (4 кроки research)
 
+**Інструменти:** використовуй ТІЛЬКИ вбудовані `WebSearch` і `WebFetch` Claude Code. Не вимагай ніяких MCP-серверів — учасники програми можуть не мати їх налаштованих.
+
 ### Крок 1 — Дослідження конкурентів
 
 З `_context-model.md` беремо `02-icp/who-is-our-client.md` (хто конкуренти) і `01-positioning/how-we-different.md`.
 
-**Виконуємо Exa-запити** (через `mcp__exa__web_search_exa` АБО `WebSearch`):
+**Виконуємо WebSearch-запити:**
 
 ```
 1. "[категорія компанії] LinkedIn thought leaders 2026"
-2. "[topик конкурента 1] LinkedIn profile examples"
-3. "[ніша] best LinkedIn headlines"
-4. "category:people [ICP role] B2B founders LinkedIn"
+2. "[topик конкурента 1] LinkedIn headline examples"
+3. "[ніша] LinkedIn profile best practices"
+4. "[ICP role] B2B founders LinkedIn"
+5. "site:linkedin.com [категорія] [регіон]"  ← для пошуку конкретних профілів
 ```
 
-Для топ-5 результатів — Firecrawl scrape (`mcp__firecrawl__firecrawl_scrape`) їхніх профілів / постів.
+Для топ-5-10 знайдених URL — **WebFetch кожного** з промптом типу: "Extract: LinkedIn headline, About first 220 chars, brand-positioning phrases, CTAs, target audience."
 
 **Витягуємо:**
 - Заголовки які вони використовують (топ-10)
@@ -276,30 +279,39 @@ leverage, synergy, passionate, thrilled, humbled, delve into, in today's landsca
 - CTA-патерни
 - Sticker-фрази які повторюються
 
+> **Якщо WebFetch блокується для LinkedIn** (часто буває — LinkedIn агресивно блокує неавторизованих) — переключайся на доступні джерела: блоги конкурентів, їхні Twitter-треди, podcasts, гостьові пости. Витягни public-positioning з того що зможеш.
+
 ### Крок 2 — ICP мова (як говорить ваш клієнт)
 
-З `02-icp/pains.md` беремо болі ICP. Шукаємо як ваш клієнт говорить про ці болі САМ:
+З `02-icp/pains.md` беремо болі ICP. Шукаємо як ваш клієнт говорить про ці болі САМ.
+
+**Виконуємо WebSearch-запити:**
 
 ```
-1. Reddit search: "[біль ICP]" site:reddit.com
-2. "[ICP role]" "frustrated" OR "struggling" LinkedIn posts
-3. "[ICP role] complaints [категорія]"
+1. "[біль ICP]" site:reddit.com
+2. "[ICP role]" "frustrated with" OR "struggling with" 
+3. "[біль ICP]" Hacker News
+4. "[ICP role] complaints [категорія]"
+5. "[біль ICP] Indie Hackers"  ← для founder-аудиторій
 ```
+
+Для топ-5 знайдених Reddit-тредів / форум-постів — **WebFetch повний текст** з промптом: "Extract: exact phrases the user uses to describe their pain. Direct quotes. Questions they ask. Words they hate."
 
 **Витягуємо:**
-- Точні фрази якими ICP описує біль
+- Точні фрази якими ICP описує біль (цитати)
 - Питання які вони задають
 - Тригери прийняття рішення
 - Слова яких вони уникають (їх раніше "наобіцяли")
 
 ### Крок 3 — Прогалини у ринку
 
-Аналізуємо що конкуренти ПОВТОРЮЮТЬ і що НЕ КАЖУТЬ. Гипотезы для unique positioning:
+Аналізуємо те що зібрали у Крок 1 і 2. Виокремлюємо:
 
-- Угол який ніхто не зайняв
-- Аудиторія яку ніхто не обслуговує конкретно
-- Механіка яку ніхто не назвав ім'ям
-- Цифра яку ніхто не показав
+- **Що ВСІ конкуренти повторюють** (зайнятий простір — туди НЕ йдемо)
+- **Що НІХТО не каже** (вільні кути для unique positioning)
+- **Аудиторії яких ніхто не обслуговує конкретно** (більшість таргетує "founders" загально — є шанси для специфіки)
+- **Механіки які ніхто не назвав ім'ям** (вашa unique terminology)
+- **Цифри яких ніхто не показав** (ваші дані як moat)
 
 ### Крок 4 — 3-5 пропозицій позиціонування
 
@@ -363,11 +375,11 @@ leverage, synergy, passionate, thrilled, humbled, delve into, in today's landsca
 # Технічні залежності
 
 - **Claude Code** — для запуску скіла
-- **WebFetch / WebSearch** — для парсу сайту і дослідження (Фаза 3)
-- **Exa MCP** (опційно) — кращий search для Фази 3
-- **Firecrawl MCP** (опційно) — кращий scrape профілів конкурентів
+- **WebFetch + WebSearch** — вбудовані інструменти Claude Code (Фаза 3)
 
-Якщо немає MCP-серверів — скіл працює на дефолтних WebSearch/WebFetch.
+**Жодних зовнішніх MCP-серверів не потрібно.** Скіл повністю self-contained — використовує тільки те що йде з Claude Code з коробки.
+
+Якщо у вас є додаткові MCP (Exa, Firecrawl, etc.) — Claude автоматично використає кращий доступний інструмент. Але це опційно, не вимога.
 
 # Workflow для учасника
 
